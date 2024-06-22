@@ -1,5 +1,5 @@
 Arrow cost = new(); // Also calling methods from constructor 
-Console.WriteLine($"Total Cost is: {cost.GetCost()} gold");
+Console.WriteLine($"Total Cost is: {cost.GetTotalCost()} gold");
 class Arrow
 {
     
@@ -59,7 +59,7 @@ class Arrow
             }
         }
     }
-    public float GetCost()
+    public float GetTotalCost()
     {
         return _arrowHeadcost + _fletchingCost + _shaftLengthcost;
     }
