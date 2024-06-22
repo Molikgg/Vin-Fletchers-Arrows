@@ -1,53 +1,58 @@
 Arrow cost = new(); // Also calling methods from constructor 
-Console.WriteLine($"Total Cost is: {cost.TotalCost()} gold");
+Console.WriteLine($"Total Cost is: {cost.GetCost()} gold");
 class Arrow
 {
-    
+    public ArrowHead _currentArrowHead;
+    public Fletching _currentFletching;
+    public float _shaftlength;
+
     public int _arrowHeadcost;
     public int _fletchingCost;
     public float _shaftLengthcost;
 
 
-    public int ArrowHeadCost()
+    public ArrowHead GetArrowHead()
     {
         while (true)
         {
             Console.WriteLine("Enter Arrow Head (Steel, Wood, Obsidian)");
             string userArrowHead = UserInput();
-            (int cost, bool success) = userArrowHead.ToLower() switch
+            (ArrowHead currentArrowHead, int cost, bool success) = userArrowHead.ToLower() switch
             {
-                "steel" => (10, true),
-                "wood" => (3, true),
-                "obsidian" => (5, true),
-                _ => (5, false)
+                "steel" => (ArrowHead.Steel, 10, true),
+                "wood" => (ArrowHead.Wood, 3, true),
+                "obsidian" => (ArrowHead.Obsidian, 5, true),
+                _ => (ArrowHead.Obsidian, 5, false)
             };
             if (success)
             {
-                return cost;
+                _arrowHeadcost = cost;
+                return currentArrowHead;
             }
         }
 
     }
-     int FletchingCost()
+    Fletching GetFletching()
     {
         while (true)
         {
             Console.WriteLine("Enter Fletching (Plastic,Turkey Feathers ,Goose Feathers)");
             string userfletching = UserInput();
-            (int cost, bool success) = userfletching.ToLower() switch
+            (Fletching currentFletching, int cost, bool success) = userfletching.ToLower() switch
             {
-                "plastic" => (10, true),
-                "turkey feathers" => (5, true),
-                "goose feathers" => (3, true),
-                _ => (3, false)
+                "plastic" => (Fletching.Plastic, 10, true),
+                "turkey feathers" => (Fletching.Turkey, 5, true),
+                "goose feathers" => (Fletching.Goose_Feathers, 3, true),
+                _ => (Fletching.Goose_Feathers, 3, false)
             };
             if (success)
             {
-                return cost;
+                _fletchingCost = cost;
+                return currentFletching;
             }
         }
     }
-    float LengthCost()
+    float GetLength()
     {
         for (; ; )
         {
@@ -55,11 +60,12 @@ class Arrow
             float shaftLength = Userlength();
             if (shaftLength >= 60 && shaftLength <= 100)
             {
-                return shaftLength * 0.05f;
+                _shaftLengthcost = shaftLength * 0.05f;
+                return shaftLength;
             }
         }
     }
-    public float TotalCost()
+    public float GetCost()
     {
         return _arrowHeadcost + _fletchingCost + _shaftLengthcost;
     }
@@ -74,8 +80,11 @@ class Arrow
     }
     public Arrow()
     {
-        _arrowHeadcost = ArrowHeadCost();
-        _fletchingCost = FletchingCost();
-        _shaftLengthcost = LengthCost();
+
+        _currentArrowHead = GetArrowHead();
+        _currentFletching = GetFletching();
+        _shaftlength = GetLength();
     }
+    public enum ArrowHead { Steel, Wood, Obsidian }
+    public enum Fletching { Plastic, Turkey, Goose_Feathers }
 }
