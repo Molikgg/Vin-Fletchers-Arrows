@@ -1,4 +1,3 @@
-
 Arrow cost = new(); // Also calling methods from constructor 
 Console.WriteLine($"Total Cost is: {cost.GetCost()} gold");
 class Arrow
@@ -12,7 +11,7 @@ class Arrow
     public float _shaftLengthcost;
 
 
-    public ArrowHead CurrentArrowHead()
+    public ArrowHead GetArrowHead()
     {
         while (true)
         {
@@ -31,9 +30,9 @@ class Arrow
                 return currentArrowHead;
             }
         }
-       
+
     }
-    Fletching CurrentFletching()
+    Fletching GetFletching()
     {
         while (true)
         {
@@ -53,7 +52,7 @@ class Arrow
             }
         }
     }
-    float ShaftLength()
+    float GetLength()
     {
         for (; ; )
         {
@@ -82,9 +81,9 @@ class Arrow
     public Arrow()
     {
 
-        _currentArrowHead = CurrentArrowHead();
-        _currentFletching = CurrentFletching();
-        _shaftlength = ShaftLength();
+        _currentArrowHead = GetArrowHead();
+        _currentFletching = GetFletching();
+        _shaftlength = GetLength();
     }
     public enum ArrowHead { Steel, Wood, Obsidian }
     public enum Fletching { Plastic, Turkey, Goose_Feathers }
